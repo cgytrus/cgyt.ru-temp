@@ -1,0 +1,33 @@
+#inner {
+    min-width: 60%;
+    max-width: 90%;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 80px;
+}
+
+#music {
+    width: 100%;
+    display: grid;
+    gap: 20px;
+}
+#playlists {
+    grid-column: 1;
+    text-align: left;
+}
+#track {
+    grid-column: 1;
+    text-align: center;
+}
+
+@media (orientation: landscape) {
+    #track {
+        grid-column: 2;
+        text-align: right;
+    }
+}
+
+.priv-edit {
+    display: none;
+}
