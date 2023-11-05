@@ -176,6 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const trackYearElem = document.getElementById('track-year');
     const trackNumberElem = document.getElementById('track-number');
     const trackListenElem = document.getElementById('track-listen');
+    const trackDownloadElem = document.getElementById('track-download');
 
     addPlaylist = (list) => {
         const listElemId = `playlist-${list.id}`;
@@ -217,6 +218,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (tr.discCount > 1)
                     trackNumberElem.textContent += ` (${tr.discNumber}/${tr.discCount})`;
                 trackListenElem.href = tr.listen;
+                trackDownloadElem.href = tr.download;
+                if (tr.listen == tr.download)
+                    trackDownloadElem.attributeStyleMap.set('display', 'none');
+                else
+                    trackDownloadElem.attributeStyleMap.delete('display');
                 trackElem.attributeStyleMap.delete('display');
             };
             trackItemElem.append(title);
