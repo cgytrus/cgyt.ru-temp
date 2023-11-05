@@ -368,7 +368,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             let tracks = list.tracks.map(t => t.id);
             const checkboxes = document.getElementsByClassName('track-checkbox');
             for (let i = 0; i < checkboxes.length; i++) {
-                tracks.push(parseInt(checkboxes.item(i).id.split('-')[1]));
+                if (checkboxes.item(i).checked)
+                    tracks.push(parseInt(checkboxes.item(i).id.split('-')[1]));
                 checkboxes.item(i).checked = false;
             }
             await playlist.edit(list.id, {
