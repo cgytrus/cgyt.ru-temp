@@ -14,7 +14,7 @@
 <body>
     <div style="text-align: right;">
         <span style="cursor: pointer;" onclick="login()">🔒</span>
-        <span style="cursor: pointer; display: none;" onclick="switchGlobalEdit()" id="global-edit-switch">✏️</span>
+        <span style="cursor: pointer;" class="display-none-firefox-sucks" onclick="switchGlobalEdit()" id="global-edit-switch">✏️</span>
     </div>
     <div id="inner">
         <span>my music library :3</span><br/>
@@ -27,7 +27,7 @@
         <span>the Silly uwu nya gayest music evr !!!!,, is my current playlist :3</span><br/>
         <span>femtanyl and kd ftw !!!!!</span><br/>
         <br/>
-        <form id="add-track" style="display: none;" action="javascript:;" onsubmit="finishAddTrack(this)">
+        <form id="add-track" class="display-none-firefox-sucks" action="javascript:;" onsubmit="finishAddTrack(this)">
             <label for="add-track-title">title:* </label><input type="text" id="add-track-title" name="title"><br/>
             <label for="add-track-artist">artist:* </label><input type="text" id="add-track-artist" name="artist"><br/>
             <label for="add-track-album">album: </label><input type="text" id="add-track-album" name="album"><br/>
@@ -42,7 +42,7 @@
             <label for="add-track-download">download: </label><input type="text" id="add-track-download" name="download"><br/>
             <input type="submit" value="add track" id="add-track-submit"><br/><br/>
         </form>
-        <form id="add-track-file" style="display: none;" action="javascript:;" onsubmit="finishAddTrackFile(this)">
+        <form id="add-track-file" class="display-none-firefox-sucks" action="javascript:;" onsubmit="finishAddTrackFile(this)">
             <label for="add-track-file-file">file:* </label><input type="file" accept="audio/*" id="add-track-file-file" name="file"><br/>
             <label for="add-track-file-lyrics">lyrics: </label><input type="file" accept=".txt,.lrc" id="add-track-file-lyrics" name="lyrics"><br/>
             <label for="add-track-file-listen">listen:* </label><input type="text" id="add-track-file-listen" name="listen"><br/>
@@ -51,7 +51,7 @@
         </form>
         <div id="music">
             <div id="playlists"></div>
-            <div id="track" style="display: none;">
+            <div id="track" class="display-none-firefox-sucks">
                 <div id="track-embed"></div>
                 <span id="track-title">artist - title</span><br/>
                 <span id="track-album">album artist - album</span><br/>
@@ -63,7 +63,7 @@
             </div>
         </div>
         <br/>
-        <form id="add-playlist" style="display: none;" action="javascript:;" onsubmit="finishAddPlaylist(this)">
+        <form id="add-playlist" class="display-none-firefox-sucks" action="javascript:;" onsubmit="finishAddPlaylist(this)">
             <label for="add-playlist-title">title:* </label><input type="text" id="add-playlist-title" name="title" required="true"><br/>
             <input type="submit" value="add playlist" id="add-playlist-submit">
         </form>

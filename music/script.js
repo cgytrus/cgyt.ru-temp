@@ -74,10 +74,10 @@ function switchGlobalEdit() {
 
 function toggleShowAddUi(id) {
     const elem = document.getElementById(id);
-    if (elem.attributeStyleMap.has('display'))
-        elem.attributeStyleMap.delete('display');
+    if (elem.classList.contains('display-none-firefox-sucks'))
+        elem.classList.remove('display-none-firefox-sucks');
     else
-        elem.attributeStyleMap.set('display', 'none');
+        elem.classList.add('display-none-firefox-sucks');
     if (typeof elem.reset === 'function')
         elem.reset();
 }
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (loggedIn) {
         console.log('logged in !!!~ uwu');
 
-        document.getElementById('global-edit-switch').attributeStyleMap.delete('display');
+        document.getElementById('global-edit-switch').classList.remove('display-none-firefox-sucks');
 
         const addPlaylistButton = document.createElement('span');
         addPlaylistButton.textContent = '➕';
@@ -238,10 +238,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 trackListenElem.href = tr.listen;
                 trackDownloadElem.href = tr.download;
                 if (tr.listen == tr.download)
-                    trackDownloadElem.attributeStyleMap.set('display', 'none');
+                    trackDownloadElem.classList.add('display-none-firefox-sucks');
                 else
-                    trackDownloadElem.attributeStyleMap.delete('display');
-                trackElem.attributeStyleMap.delete('display');
+                    trackDownloadElem.classList.remove('display-none-firefox-sucks');
+                trackElem.classList.remove('display-none-firefox-sucks');
             };
             trackItemElem.append(title);
 
