@@ -1,7 +1,7 @@
 const username = 'cgytrus';
 
 function reqLib(method, url, data, auth) {
-    return fetch(`https://localhost:7285/music/v1${url}`, {
+    return fetch(`https://api.cgyt.ru/music/v1${url}`, {
         method,
         cache: 'no-cache',
         credentials: 'same-origin',
