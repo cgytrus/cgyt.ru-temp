@@ -3,7 +3,7 @@ function tryEmbed(url) {
 }
 
 function tryEmbedYouTube(url) {
-    const match = url.match(/http(?:|s):\/\/(?:youtu\.be\/|(?:|www\.)youtube\.com\/watch\?(?:|.*&)v=)([0-9a-zA-Z_-]*).*/);
+    const match = url.match(/http(?:|s):\/\/(?:youtu\.be\/|(?:|www\.|music\.)youtube\.com\/watch\?(?:|.*&)v=)([0-9a-zA-Z_-]*).*/);
     if (match === null)
         return null;
     const id = match[1];
