@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>ConfiG's Online Music Library</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+    <link rel="stylesheet" href="../roboto.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="base64ArrayBuffer.js" type="text/javascript"></script>
+    <script src="embed.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <div style="text-align: right;">
+        <span style="cursor: pointer;" onclick="login()">🔒</span>
+        <span style="cursor: pointer; display: none;" onclick="switchGlobalEdit()" id="global-edit-switch">✏️</span>
+    </div>
+    <div id="inner">
+        <span>my music library :3</span><br/>
+        <span>also heres my <a href="https://last.fm/user/cgytrus" target="_blank">last.fm</a> !!!!!</span><br/>
+        <span>ill probably be linking animations here instead of the actual songs lol</span><br/>
+        <br/>
+        <form id="add-track" style="display: none;" action="javascript:;" onsubmit="finishAddTrack(this)">
+            <label for="add-track-title">title:* </label><input type="text" id="add-track-title" name="title"><br/>
+            <label for="add-track-artist">artist:* </label><input type="text" id="add-track-artist" name="artist"><br/>
+            <label for="add-track-album">album: </label><input type="text" id="add-track-album" name="album"><br/>
+            <label for="add-track-album-artist">album artist: </label><input type="text" id="add-track-album-artist" name="albumArtist"><br/>
+            <label for="add-track-art">art: </label><input type="file" accept="image/png, image/jpeg, image/webm" id="add-track-art" name="art"><br/>
+            <label for="add-track-year">year: </label><input type="number" id="add-track-year" name="year"><br/>
+            <label for="add-track-genre">genre: </label><input type="text" id="add-track-genre" name="genre"><br/>
+            <label for="add-track-track-number">track: </label><input type="number" id="add-track-track-number" name="trackNumber">/<input type="number" name="trackCount"><br/>
+            <label for="add-track-disc-number">disc: </label><input type="number" id="add-track-disc-number" name="discNumber">/<input type="number" name="discCount"><br/>
+            <label for="add-track-lyrics">lyrics: </label><input type="file" accept=".txt,.lrc" id="add-track-lyrics" name="lyrics"><br/>
+            <label for="add-track-listen">listen:* </label><input type="text" id="add-track-listen" name="listen"><br/>
+            <label for="add-track-download">download: </label><input type="text" id="add-track-download" name="download"><br/>
+            <input type="submit" value="add track" id="add-track-submit"><br/><br/>
+        </form>
+        <div id="music">
+            <div id="playlists"></div>
+            <div id="track" style="display: none;">
+                <div id="track-embed"></div>
+                <span id="track-title">artist - title</span><br/>
+                <span id="track-album">album artist - album</span><br/>
+                <span id="track-genre">genre</span><br/>
+                <span id="track-year">year</span><br/>
+                <span id="track-number">1/1 (disk: 1/1)</span><br/>
+                <a id="track-listen" target="_blank">listen</a>
+            </div>
+        </div>
+        <br/>
+        <form id="add-playlist" style="display: none;" action="javascript:;" onsubmit="finishAddPlaylist(this)">
+            <label for="add-playlist-title">title:* </label><input type="text" id="add-playlist-title" name="title" required="true"><br/>
+            <input type="submit" value="add playlist" id="add-playlist-submit">
+        </form>
+    </div>
+</body>
+</html>
