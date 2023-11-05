@@ -74,10 +74,14 @@ function switchGlobalEdit() {
 
 function toggleShowAddUi(id) {
     const elem = document.getElementById(id);
-    if (elem.attributeStyleMap.has('display'))
+    if (elem.attributeStyleMap.has('display')) {
         elem.attributeStyleMap.delete('display');
-    else
+    }
+    else {
         elem.attributeStyleMap.set('display', 'none');
+        if (elem.tag == 'FORM')
+            elem.reset();
+    }
 }
 
 function addPlaylist() { throw 'too early'; }
