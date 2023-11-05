@@ -26,6 +26,7 @@ const track = {
     getLyrics: async id => await (await reqLib('GET', `/track/${id}/lyrics`)).text(),
     download: async id => await reqLib('GET', `/track/${id}/download`),
     add: async data => await (await reqLib('POST', '/track', data)).json(),
+    addFile: async data => await (await reqLib('POST', '/track/file', data)).json(),
     edit: async (id, data) => await reqLib('PUT', `/track/${id}`, data),
     remove: async id => await reqLib('DELETE', `/track/${id}`)
 };
@@ -119,6 +120,21 @@ async function finishAddTrack(form) {
     addAllPlaylists();
     toggleShowAddUi('add-track');
     document.getElementById('add-track-submit').disabled = false;
+}
+
+async function finishAddTrackFile(form) {
+    document.getElementById('add-track-file-submit').disabled = true;
+    const data = {
+        fileName: form.file.files.length == 0 ? undefined : form.file.files[0].name,
+        file: form.file.files.length == 0 ? undefined : base64ArrayBuffer(await form.file.files[0].arrayBuffer()),
+        lyrics: form.lyrics.files.length == 0 ? '' : await form.lyrics.files[0].text(),
+        listen: form.listen.value == '' ? undefined : form.listen.value,
+        download: form.download.value == '' ? undefined : form.download.value
+    };
+    await track.addFile(data);
+    addAllPlaylists();
+    toggleShowAddUi('add-track-file');
+    document.getElementById('add-track-file-submit').disabled = false;
 }
 
 async function finishAddPlaylist(form) {
@@ -360,7 +376,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
         summary.append(addTrackButton);
 
-        if (list.id != 0) {
+        if (list.id == 0) {
+            const addTrackFileButton = document.createElement('span');
+            addTrackFileButton.textContent = '📂';
+            addTrackFileButton.classList.add(getGlobalEditClass());
+            addTrackFileButton.style = 'cursor: pointer;';
+            addTrackFileButton.onclick = async () => {
+                toggleShowAddUi('add-track-file');
+            };
+            summary.append(addTrackFileButton);
+        }
+        else {
             const editNameButton = document.createElement('span');
             editNameButton.textContent = '✏️';
             editNameButton.classList.add(getGlobalEditClass());
