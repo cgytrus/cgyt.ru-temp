@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (!loggedIn)
-                return;
+                continue;
 
             const downloadButton = document.createElement('span');
             downloadButton.textContent = '⬇️';
