@@ -9,7 +9,6 @@ function tryEmbedYouTube(url) {
     const id = match[1];
     const iframe = document.createElement('iframe');
     iframe.width = '300px';
-    iframe.height = '300px';
     iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&fs=0`;
     iframe.frameBorder = 'none';
     return iframe;
