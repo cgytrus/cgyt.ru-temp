@@ -9,7 +9,7 @@ a {
 }
 
 #bg {
-    z-index: -9999;
+    z-index: -9998;
     position: absolute;
     top: 0;
     left: 0;
@@ -21,8 +21,20 @@ a {
     filter: contrast(190%) brightness(450%);
     background-color: white;
     background:
-        linear-gradient(180deg, rgba(4,41,22,0.81), rgba(0,0,0,0.31)),
-        linear-gradient(180deg, rgba(0,174,255,0.28), rgba(0,0,0,1)),
-        url(./bgnoise.svg);
+        linear-gradient(180deg, rgba(4, 41, 22, 0.81), rgba(0, 0, 0, 0.31)),
+        linear-gradient(180deg, rgba(0, 174, 255, 0.28), rgba(0, 0, 0, 1)),
+        url(./bg.svg);
     background-repeat: repeat-x;
+}
+#bg2 {
+    z-index: -9999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 256px;
+    max-height: 256px;
+    min-width: 100%;
+    background: url(./bg2.svg);
 }
