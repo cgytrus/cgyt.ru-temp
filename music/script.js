@@ -39,7 +39,12 @@ const playlist = {
 };
 
 async function login() {
-    const res = prompt('token');
+    if (await user.verify(undefined) == '') {
+        document.cookie += '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        location.reload();
+        return;
+    }
+    const res = prompt('this is only for myself !!!!! ur not supposde to see dis ,,,,,, :<');
     if (res === null)
         return;
     const ver = await user.verify(res);
@@ -84,7 +89,7 @@ function toggleShowAddUi(id) {
 
 function addPlaylist() { throw 'too early'; }
 async function addFakePlaylist() {
-    addPlaylist({ id: 0, title: 'all', tracks: await user.getTracks(username) });
+    addPlaylist({ id: 0, title: 'all songs', tracks: await user.getTracks(username) });
 }
 async function addAllPlaylists() {
     await addFakePlaylist();
@@ -173,6 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (loggedIn) {
         console.log('logged in !!!~ uwu');
 
+        document.getElementById('login-switch').textContent = '🔓';
         document.getElementById('global-edit-switch').classList.remove('display-none-firefox-sucks');
 
         const addPlaylistButton = document.createElement('span');

@@ -13,21 +13,29 @@
 </head>
 <body>
     <div style="text-align: right;">
-        <span style="cursor: pointer;" onclick="login()">🔒</span>
+        <span style="cursor: pointer;" id="login-switch" onclick="login()">🔒</span>
         <span style="cursor: pointer;" class="display-none-firefox-sucks" onclick="switchGlobalEdit()" id="global-edit-switch">✏️</span>
     </div>
     <div id="inner">
         <span>my music library :3</span><br/>
-        <span>here u can see the playlists i make for myself to listen to, when u click on a song u can listen to it !!</span><br/>
-        <span>made by me and sbeve in like a few days using c#, asp.net, ef core, docker and atrocious code (<a href="https://github.com/cgytrus/OnlineMusicLibrary" target="_blank">repo</a>)</span><br/>
-        <span>also heres my <a href="https://last.fm/user/cgytrus" target="_blank">last.fm</a> !!!!!</span><br/>
-        <span>ill probably be linking like animations or smth here instead of the actual songs for the listen links lol</span><br/>
-        <span>some youtube links here have timestamps into a "full album" video but im too lazy to specify ends so its just gonna start playing the next track in the album sry abt tht :p</span><br/>
-        <span>Ev2 is my regular playlist ive been updating and listening to for years now</span><br/>
-        <span>save. is a newer playlist that contains the calmer songs from Ev2 + some older calm songs that i at some point removed from Ev2</span><br/>
-        <span>the Silly uwu nya gayest music evr !!!!,, is my current playlist :3</span><br/>
-        <span>femtanyl and kd ftw !!!!!</span><br/>
         <br/>
+        <span>here u can see the playlists i make for myself to listen to, when u click on a song u can listen to it !!</span><br/>
+        <span>made by me and sbeve in like a few days by writing some <a href="https://github.com/cgytrus/OnlineMusicLibrary" target="_blank">atrocious code</a></span><br/>
+        <span>also heres my <a href="https://last.fm/user/cgytrus" target="_blank">last.fm</a> !!!!!</span><br/>
+        <br/>
+        <span>ill probly be linking like anims or smth here instead of the actual songs for the listen links lol</span><br/>
+        <br/>
+        <span>some youtube links here have timestamps into a "full album" video but</span><br/>
+        <span>im too lazy to specify ends so its just gonna start playing the next track in the album sry abt tht :p</span><br/>
+        <br/>
+        <span>playlist explanations:</span><br/>
+        <span>Ev2 is my regular playlist ive been updating and listening to for years now</span><br/>
+        <span>save. is a newer playlist that contains the calmer songs from Ev2 + some older calm songs that ive removed from Ev2</span><br/>
+        <span>the Silly uwu nya gayest music evr !!!!,, is my current playlist~ :3</span><br/>
+        <br/>
+        <span>femtanyl and kd ftw !!!!!!!</span><br/>
+        <br/>
+        <span>playlists:</span><br/>
         <form id="add-track" class="display-none-firefox-sucks" action="javascript:;" onsubmit="finishAddTrack(this)">
             <label for="add-track-title">title:* </label><input type="text" id="add-track-title" name="title"><br/>
             <label for="add-track-artist">artist:* </label><input type="text" id="add-track-artist" name="artist"><br/>
