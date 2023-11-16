@@ -318,6 +318,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                     };
                 }
                 trackItemElem.prepend(moveDownButton);
+
+                const moveArbitraryButton = document.createElement('span');
+                moveArbitraryButton.textContent = '↕️';
+                moveArbitraryButton.classList.add(getGlobalEditClass());
+                moveArbitraryButton.style = 'cursor: pointer;';
+                moveArbitraryButton.onclick = async () => {
+                    const target = parseInt(prompt(`where to move ???`, i));
+                    list.tracks.splice(i, 1);
+                    list.tracks.splice(target, 0, tr);
+                    await playlist.edit(list.id, {
+                        tracks: list.tracks.map(t => t.id)
+                    });
+                    addPlaylist(await playlist.get(list.id));
+                };
+                trackItemElem.prepend(moveArbitraryButton);
             }
 
             const removeButton = document.createElement('span');
