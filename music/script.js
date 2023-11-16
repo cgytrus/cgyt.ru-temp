@@ -324,7 +324,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 moveArbitraryButton.classList.add(getGlobalEditClass());
                 moveArbitraryButton.style = 'cursor: pointer;';
                 moveArbitraryButton.onclick = async () => {
-                    const target = parseInt(prompt(`where to move ???`, i));
+                    const targetStr = prompt(`where to move ???`, i);
+                    if (targetStr === null)
+                        return;
+                    const target = parseInt(targetStr);
                     list.tracks.splice(i, 1);
                     list.tracks.splice(target, 0, tr);
                     await playlist.edit(list.id, {
