@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             listElem.firstChild.remove();
 
         const summary = document.createElement('summary');
-        summary.textContent = list.title;
+        summary.textContent = `${list.title} (${list.tracks.length})`;
         listElem.append(summary);
 
         for (let i = 0; i < list.tracks.length; i++) {
