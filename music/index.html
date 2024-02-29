@@ -14,9 +14,12 @@
 <body>
     <div id="bg"></div>
     <div id="bg2"></div>
-    <div style="text-align: right;">
-        <span style="cursor: pointer;" id="login-switch" onclick="login()">🔒</span>
-        <span style="cursor: pointer;" class="display-none-firefox-sucks" onclick="switchGlobalEdit()" id="global-edit-switch">✏️</span>
+    <div style="display: grid; grid-auto-flow: column;">
+        <a href=".." style="text-decoration: none;">🏠</a>
+        <div style="text-align: right;">
+            <span style="cursor: pointer;" id="login-switch" onclick="login()">🔒</span>
+            <span style="cursor: pointer;" class="display-none-firefox-sucks" onclick="switchGlobalEdit()" id="global-edit-switch">✏️</span>
+        </div>
     </div>
     <div id="inner">
         <span>my music library :3</span><br/>
