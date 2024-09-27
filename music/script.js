@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             createDraftButton.style = 'cursor: pointer;';
             createDraftButton.onclick = async () => {
                 const draftId = await api.draft.create();
-                location.href = `${location.host}/music/draft?id=${draftId}`;
+                location.href = `${location.origin}/music/draft?id=${draftId}`;
             };
             summary.append(createDraftButton);
         }

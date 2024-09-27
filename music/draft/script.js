@@ -165,7 +165,7 @@ async function fetchFile(fileId) {
                 fileErrorElem.innerText = error;
                 return;
             }
-            location.href = `${location.host}/music`;
+            location.href = `${location.origin}/music`;
         };
         fileElem.append(finalizeButton);
     }
