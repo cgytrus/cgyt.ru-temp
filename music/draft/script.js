@@ -34,7 +34,7 @@ async function finishFileArt(form) {
     document.getElementById('art-file-submit').disabled = true;
     document.getElementById('art-link-submit').disabled = true;
     try {
-        await api.draft.updateArt(draftId, form.art.files[0].stream(), form.art.files[0].type);
+        await api.draft.updateArt(draftId, form.art.files[0], form.art.files[0].type);
     }
     catch (error) {
         document.getElementById('art-file-error').innerText = error;
