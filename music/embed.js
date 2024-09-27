@@ -1,8 +1,8 @@
-function tryEmbed(url) {
-    return tryEmbedYouTube(url);
+function tryEmbed(url, autoplay) {
+    return tryEmbedYouTube(url, autoplay);
 }
 
-function tryEmbedYouTube(url) {
+function tryEmbedYouTube(url, autoplay) {
     const match = url.match(/http(?:|s):\/\/(?:youtu\.be\/|(?:|www\.|music\.)youtube\.com\/watch\?(?:|.*&)v=)([0-9a-zA-Z_-]*).*/);
     if (match === null)
         return null;
@@ -27,7 +27,7 @@ function tryEmbedYouTube(url) {
     }
     const iframe = document.createElement('iframe');
     iframe.width = '300px';
-    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&fs=0&start=${start}`;
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=${autoplay ? '1' : '0'}&fs=0&start=${start}`;
     iframe.style = 'border: none;';
     return iframe;
 }

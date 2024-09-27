@@ -8,12 +8,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const playlistsElem = document.getElementById('playlists');
     const trackElem = document.getElementById('track');
-    const trackEmbedElem = document.getElementById('track-embed');
+    const trackEmbedsElem = document.getElementById('track-embeds');
     const trackTitleElem = document.getElementById('track-title');
     const trackAlbumElem = document.getElementById('track-album');
     const trackYearElem = document.getElementById('track-year');
     const trackNumberElem = document.getElementById('track-number');
-    const trackListenElem = document.getElementById('track-listen');
+    const trackLinksElem = document.getElementById('track-links');
 
     function addPlaylist(listId, listName, listTracks) {
         const listElemId = `playlist-${listId}`;
@@ -44,14 +44,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 title.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
                 title.href = '#';
                 title.onclick = () => {
-                    while (trackEmbedElem.hasChildNodes())
-                        trackEmbedElem.firstChild.remove();
+                    trackEmbedsElem.replaceChildren();
+                    let embedAutoplay = true;
                     for (const link of tr.links) {
-                        const embed = tryEmbed(link);
+                        const embed = tryEmbed(link, embedAutoplay);
                         if (!embed)
                             continue;
-                        trackEmbedElem.append(embed);
-                        break;
+                        trackEmbedsElem.append(embed);
+                        trackEmbedsElem.append(document.createElement('br'));
+                        embedAutoplay = false;
                     }
 
                     trackTitleElem.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
@@ -62,13 +63,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     trackNumberElem.textContent = `${tr.trackNumber}/${tr.trackCount}`;
                     if (tr.discCount > 1)
                         trackNumberElem.textContent += ` (${tr.discNumber}/${tr.discCount})`;
-                    trackListenElem.replaceChildren();
+                    trackLinksElem.replaceChildren();
                     for (const link of tr.links) {
                         const linkElem = document.createElement('a');
                         linkElem.href = link;
                         linkElem.target = '_blank';
-                        trackListenElem.append(linkElem);
-                        trackListenElem.append(document.createElement('br'));
+                        trackLinksElem.append(linkElem);
+                        trackLinksElem.append(document.createElement('br'));
                     }
 
                     trackElem.classList.remove('display-none-firefox-sucks');
