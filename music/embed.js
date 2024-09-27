@@ -28,6 +28,6 @@ function tryEmbedYouTube(url) {
     const iframe = document.createElement('iframe');
     iframe.width = '300px';
     iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&fs=0&start=${start}`;
-    iframe.frameBorder = 'none';
+    iframe.style = 'border: none;';
     return iframe;
 }
