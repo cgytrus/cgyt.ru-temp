@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>ConfiG's Online Music Library</title>
+    <link rel="icon" type="image/x-icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../roboto.css">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../style.css">
+    <script src="../api.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    <div id="bg"></div>
+    <div id="bg2"></div>
+    <div style="display: grid; grid-auto-flow: column;">
+        <a href=".." style="text-decoration: none;">🏠</a>
+        <div style="text-align: right;">
+            <span style="cursor: pointer;" id="login-switch" onclick="login()">🔒</span>
+        </div>
+    </div>
+    <div id="inner">
+        <span>dwaft editow</span><br/>
+        <br/>
+        <span>secwet page !!!!!!!  pwease dont wook !!! &gt;~&lt; ,,,., ,</span><br/>
+        <br/>
+        <form id="meta" action="javascript:;" onsubmit="finishMeta(this)">
+            <label for="meta-title">title:* </label><input type="text" id="meta-title" name="title"><br/>
+            <label for="meta-artist">artist:* </label><input type="text" id="meta-artist" name="artist"><br/>
+            <label for="meta-album">album: </label><input type="text" id="meta-album" name="album"><br/>
+            <label for="meta-album-artist">album artist: </label><input type="text" id="meta-album-artist" name="albumArtist"><br/>
+            <label for="meta-year">year:* </label><input type="number" id="meta-year" name="year"><br/>
+            <label for="meta-track-number">track:* </label><input type="number" id="meta-track-number" name="trackNumber">/<input type="number" name="trackCount"><br/>
+            <label for="meta-disc-number">disc:* </label><input type="number" id="meta-disc-number" name="discNumber">/<input type="number" name="discCount"><br/>
+            <label for="meta-links">links:* </label><br/><textarea type="text" id="meta-links" name="links"></textarea><br/>
+            <input type="submit" value="update meta" id="meta-submit">
+            <label id="meta-error" class="error"></label><br/><br/>
+        </form>
+        <div id="links"></div><br/>
+        <span id="links-error" class="error"></span>
+        <form id="art-file" action="javascript:;" onsubmit="finishFileArt(this)">
+            <label for="art-file-art">art:* </label><input type="file" accept="image/png, image/jpeg, image/webm" id="art-file-art" name="art"><br/>
+            <input type="submit" value="upload file art" id="art-file-submit">
+            <label id="art-file-error" class="error"></label><br/><br/>
+        </form>
+        <form id="art-link" action="javascript:;" onsubmit="finishLinkArt(this)">
+            <label for="art-link-art">art:* </label><input type="url" id="art-link-art" name="art"><br/>
+            <input type="submit" value="upload link art" id="art-link-submit">
+            <label id="art-link-error" class="error"></label><br/><br/>
+        </form>
+        <div id="files"></div><br/>
+        <span id="files-error" class="error"></span>
+    </div>
+</body>
+</html>

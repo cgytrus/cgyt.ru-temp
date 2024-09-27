@@ -34,3 +34,8 @@
 .display-none-firefox-sucks {
     display: none;
 }
+
+.error {
+    color: #F00;
+    font-size: 12pt;
+}
