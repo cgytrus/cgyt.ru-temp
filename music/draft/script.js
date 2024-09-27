@@ -1,6 +1,11 @@
 const searchParams = new URLSearchParams(location.search);
 const draftId = searchParams.get('id');
 
+async function deleteDraft() {
+    await api.draft.delete(draftId);
+    location.href = `${location.origin}/music`;
+}
+
 async function finishMeta(form) {
     document.getElementById('meta-submit').disabled = true;
     const data = {
@@ -45,7 +50,6 @@ async function finishLinkArt(form) {
         await api.draft.updateArt(draftId, form.art.value, 'text/plain');
     }
     catch (error) {
-        console.log(error);
         document.getElementById('art-link-error').innerText = error;
     }
     document.getElementById('art-file-submit').disabled = false;
