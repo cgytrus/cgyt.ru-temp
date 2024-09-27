@@ -94,13 +94,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (loggedIn)
         addPlaylist('drafts', 'drafts', await api.getDrafts());
-    addPlaylist('tracks', 'all songs', await api.getTracks());
 
-    const playlists = await api.getPlaylists();
-    for (const id in playlists) {
-        if (!Object.hasOwnProperty.call(playlists, id))
+    const library = await api.getLibrary();
+    addPlaylist('tracks', 'all songs', library.tracks);
+    for (const id in library.playlists) {
+        if (!Object.hasOwnProperty.call(library.playlists, id))
             continue;
-        const playlist = playlists[id];
+        const playlist = library.playlists[id];
+        if (!loggedIn && playlist.hasUnrecognized)
+            continue;
         const names = [];
         for (const name in playlist.names) {
             if (!Object.hasOwnProperty.call(playlist.names, name))
@@ -124,6 +126,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 names.push(`${name} [ ${processedTypes.join(', ')} ]`);
             }
         }
-        addPlaylist(id, names.length == 0 ? `#${id}` : names.join(' / '), playlist.tracks);
+        let listName = names.length == 0 ? `#${id}` : names.join(' / ');
+        if (playlist.hasUnrecognized)
+            listName = `🔒 ${listName}`;
+        addPlaylist(id, listName, playlist.tracks);
     }
 });

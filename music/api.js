@@ -20,8 +20,7 @@ async function reqLib(method, url, data, dataType, auth) {
 
 const api = {
     auth: async token => await (await reqLib('GET', `/auth`, undefined, undefined, token)).text(),
-    getTracks: async () => await (await reqLib('GET', '/tracks')).json(),
-    getPlaylists: async () => await (await reqLib('GET', '/playlists')).json(),
+    getLibrary: async () => await (await reqLib('GET', '/library')).json(),
     getDrafts: async () => await (await reqLib('GET', '/drafts')).json(),
     draft: {
         create: async () => parseInt(await (await reqLib('POST', '/draft')).text()),
