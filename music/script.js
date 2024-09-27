@@ -64,8 +64,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (tr.discCount > 1)
                         trackNumberElem.textContent += ` (${tr.discNumber}/${tr.discCount})`;
                     trackLinksElem.replaceChildren();
+                    let listenIndex = 1;
                     for (const link of tr.links) {
                         const linkElem = document.createElement('a');
+                        linkElem.innerText = `listen ${listenIndex++}`;
                         linkElem.href = link;
                         linkElem.target = '_blank';
                         trackLinksElem.append(linkElem);
