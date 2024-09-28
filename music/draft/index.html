@@ -36,6 +36,7 @@
             <label for="meta-disc-number">disc:* </label><input type="number" id="meta-disc-number" name="discNumber">/<input type="number" name="discCount"><br/>
             <label for="meta-links">links:* </label><br/><textarea type="text" id="meta-links" name="links"></textarea><br/>
             <input type="submit" value="update meta" id="meta-submit">
+            <input type="button" value="musicbrainz lookup" id="meta-lookup" onclick="lookupMeta(this.form)">
             <label id="meta-error" class="error"></label><br/><br/>
         </form>
         <div id="links"></div><br/>

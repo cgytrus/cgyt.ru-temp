@@ -8,6 +8,7 @@ async function deleteDraft() {
 
 async function finishMeta(form) {
     document.getElementById('meta-submit').disabled = true;
+    document.getElementById('meta-lookup').disabled = true;
     const data = {
         title: form.title.value == '' ? undefined : form.title.value,
         artist: form.artist.value == '' ? undefined : form.artist.value,
@@ -28,6 +29,40 @@ async function finishMeta(form) {
     }
     await fetchMeta();
     document.getElementById('meta-submit').disabled = false;
+    document.getElementById('meta-lookup').disabled = false;
+}
+
+async function lookupMeta(form) {
+    document.getElementById('meta-submit').disabled = true;
+    document.getElementById('meta-lookup').disabled = true;
+    document.getElementById('art-file-submit').disabled = true;
+    document.getElementById('art-link-submit').disabled = true;
+    try {
+        const params = new URLSearchParams({
+            artist_name: form.artist.value == '' ? undefined : form.artist.value,
+            recording_name: form.title.value == '' ? undefined : form.title.value,
+            release_name: form.album.value == '' ? undefined : form.album.value
+        });
+        // lol
+        const initLookup = await (await fetch(`https://api.listenbrainz.org/1/metadata/lookup/?${params}`)).json();
+        const lookup = await (await fetch(`https://musicbrainz.org/ws/2/release/${initLookup.release_mbid}?inc=artists+recordings&fmt=json`)).json();
+        form.title.value = initLookup.recording_name || form.title.value;
+        form.artist.value = initLookup.artist_credit_name || form.artist.value;
+        form.album.value = lookup.title || form.album.value;
+        form.albumArtist.value = lookup['artist-credit']?.map(x => x.name)?.join(' & ') || form.albumArtist.value;
+        form.year.value = lookup.date?.split('-')?.[0] || form.year.value;
+        form.trackNumber.value = lookup.media?.[0]?.tracks?.find(x => x.recording.id == initLookup.recording_mbid)?.number || form.trackNumber.value;
+        form.trackCount.value = lookup.media?.[0]?.['track-count'] || form.trackCount.value;
+        if (lookup['cover-art-archive']?.front)
+            document.getElementById('art-link-art').value = `https://coverartarchive.org/release/${initLookup.release_mbid}/front`;
+    }
+    catch (error) {
+        document.getElementById('meta-error').innerText = error;
+    }
+    document.getElementById('meta-submit').disabled = false;
+    document.getElementById('meta-lookup').disabled = false;
+    document.getElementById('art-file-submit').disabled = false;
+    document.getElementById('art-link-submit').disabled = false;
 }
 
 async function finishFileArt(form) {
