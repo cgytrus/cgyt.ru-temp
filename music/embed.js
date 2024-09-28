@@ -1,5 +1,6 @@
 function tryEmbed(url, autoplay) {
-    return tryEmbedYouTube(url, autoplay);
+    return tryEmbedYouTube(url, autoplay) ||
+        tryEmbedSoundCloud(url, autoplay);
 }
 
 function tryEmbedYouTube(url, autoplay) {
@@ -28,6 +29,17 @@ function tryEmbedYouTube(url, autoplay) {
     const iframe = document.createElement('iframe');
     iframe.width = '300px';
     iframe.src = `https://www.youtube.com/embed/${id}?autoplay=${autoplay ? '1' : '0'}&fs=0&start=${start}`;
+    iframe.style = 'border: none;';
+    return iframe;
+}
+
+function tryEmbedSoundCloud(url, autoplay) {
+    const match = url.match(/http(?:|s):\/\/(?:(?:|www\.)soundcloud\.com\/[a-z-]+\/[a-z-]+|api\.soundcloud\.com\/tracks\/[0-9]+)/);
+    if (match === null)
+        return null;
+    const iframe = document.createElement('iframe');
+    iframe.width = '400px';
+    iframe.src = encodeURI(`https://w.soundcloud.com/player/?url=${url}&auto_play=${autoplay}`);
     iframe.style = 'border: none;';
     return iframe;
 }
