@@ -239,7 +239,9 @@ async function fetchFile(fileId) {
             fileErrorElem.innerText = file.progress.data;
         }
         else {
-            info.textContent = `${file.progress.state} ${Math.floor(file.progress.progress * 100.0)} ${file.progress.data}`;
+            info.textContent = `${file.progress.state} ${Math.floor(file.progress.progress * 100.0)} `;
+            if (file.progress.data)
+                info.textContent += file.progress.data;
             setTimeout(() => { fetchFile(fileId) }, 500);
         }
         fileElem.append(info);
