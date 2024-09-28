@@ -238,7 +238,12 @@ async function fetchFile(fileId) {
         fileElem.append(info);
         fileElem.append(document.createElement('br'));
 
-        setTimeout(() => { fetchFile(fileId) }, 500);
+        if (file.progress.state == 'error') {
+            fileErrorElem.innerText = file.progress.data;
+        }
+        else {
+            setTimeout(() => { fetchFile(fileId) }, 500);
+        }
     }
     else {
         fileErrorElem.innerText = 'unknow status: ' + file.status;
