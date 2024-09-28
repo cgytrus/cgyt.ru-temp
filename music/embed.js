@@ -1,9 +1,10 @@
-function tryEmbed(url, autoplay) {
-    return tryEmbedYouTube(url, autoplay) ||
-        tryEmbedSoundCloud(url, autoplay);
+async function tryEmbed(url) {
+    return tryEmbedYouTube(url) ||
+        tryEmbedSoundCloud(url) ||
+        tryEmbedBandcamp(url);
 }
 
-function tryEmbedYouTube(url, autoplay) {
+function tryEmbedYouTube(url) {
     const match = url.match(/http(?:|s):\/\/(?:youtu\.be\/|(?:|www\.|music\.)youtube\.com\/watch\?(?:|.*&)v=)([0-9a-zA-Z_-]*).*/);
     if (match === null)
         return null;
@@ -28,18 +29,41 @@ function tryEmbedYouTube(url, autoplay) {
     }
     const iframe = document.createElement('iframe');
     iframe.width = '300px';
-    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=${autoplay ? '1' : '0'}&fs=0&start=${start}`;
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=0&fs=0&start=${start}`;
     iframe.style = 'border: none;';
     return iframe;
 }
 
-function tryEmbedSoundCloud(url, autoplay) {
+function tryEmbedSoundCloud(url) {
     const match = url.match(/http(?:|s):\/\/(?:(?:|www\.)soundcloud\.com\/[a-z-]+\/[a-z-]+|api\.soundcloud\.com\/tracks\/[0-9]+)/);
     if (match === null)
         return null;
     const iframe = document.createElement('iframe');
-    iframe.width = '400px';
-    iframe.src = encodeURI(`https://w.soundcloud.com/player/?url=${url}&auto_play=${autoplay}`);
+    iframe.width = '300px';
+    iframe.height = '300px';
+    iframe.src = encodeURI(`https://w.soundcloud.com/player/?url=${url}&auto_play=false&color=%2304a71d&visual=true`);
     iframe.style = 'border: none;';
     return iframe;
+}
+
+async function tryEmbedBandcamp(url) {
+    return null;
+    //const match = url.match(/http(?:|s):\/\/(?:[a-z-]+\.bandcamp\.com\/track\/[a-z-]+)/);
+    //if (match === null)
+    //    return null;
+    //try {
+    //    const props = JSON.parse(DOMParser.parseFromString(await (await fetch(url)).text(), 'text/html').querySelector('meta[name="bc-page-properties"]').content);
+    //    const type = props.item_type == 't' ? 'track' : props.item_type == 'a' ? 'album' : props.item_type;
+    //    const id = props.item_id;
+    //    const iframe = document.createElement('iframe');
+    //    iframe.width = '300px';
+    //    iframe.height = '420px';
+    //    iframe.src = encodeURI(`https://bandcamp.com/EmbeddedPlayer/${type}=${id}/size=large/bgcol=333333/linkcol=2ebd35/tracklist=false/transparent=true/`);
+    //    iframe.style = 'border: none;';
+    //    return iframe;
+    //}
+    //catch (error) {
+    //    console.error(error);
+    //    return null;
+    //}
 }

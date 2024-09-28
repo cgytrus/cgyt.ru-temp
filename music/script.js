@@ -43,16 +43,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             else {
                 title.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
                 title.href = '#';
-                title.onclick = () => {
+                title.onclick = async () => {
                     trackEmbedsElem.replaceChildren();
-                    let embedAutoplay = true;
                     for (const link of tr.links) {
-                        const embed = tryEmbed(link, embedAutoplay);
+                        const embed = await tryEmbed(link);
                         if (!embed)
                             continue;
                         trackEmbedsElem.append(embed);
                         trackEmbedsElem.append(document.createElement('br'));
-                        embedAutoplay = false;
                     }
 
                     trackTitleElem.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
