@@ -234,16 +234,16 @@ async function fetchFile(fileId) {
     }
     else if (file.status == 'downloading') {
         const info = document.createElement('span');
-        info.textContent = `${file.progress.state} ${Math.floor(file.progress.progress * 100.0)}`;
-        fileElem.append(info);
-        fileElem.append(document.createElement('br'));
-
         if (file.progress.state == 'error') {
+            info.textContent = file.progress.state;
             fileErrorElem.innerText = file.progress.data;
         }
         else {
+            info.textContent = `${file.progress.state} ${Math.floor(file.progress.progress * 100.0)} ${file.progress.data}`;
             setTimeout(() => { fetchFile(fileId) }, 500);
         }
+        fileElem.append(info);
+        fileElem.append(document.createElement('br'));
     }
     else {
         fileErrorElem.innerText = 'unknow status: ' + file.status;
