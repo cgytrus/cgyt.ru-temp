@@ -124,6 +124,34 @@ async function fetchMeta() {
             };
             linkItemElem.append(createFileButton);
 
+            const createFileProxiedPcButton = document.createElement('span');
+            createFileProxiedPcButton.textContent = '🖥️';
+            createFileProxiedPcButton.style = 'cursor: pointer;';
+            createFileProxiedPcButton.onclick = async () => {
+                try {
+                    const fileId = await api.draft.file.create(draftId, link, 'pc.conf');
+                    await fetchFile(fileId);
+                }
+                catch (error) {
+                    document.getElementById('links-error').innerText = error;
+                }
+            };
+            linkItemElem.append(createFileProxiedPcButton);
+
+            const createFileProxiedPhoneButton = document.createElement('span');
+            createFileProxiedPhoneButton.textContent = '🖥️';
+            createFileProxiedPhoneButton.style = 'cursor: pointer;';
+            createFileProxiedPhoneButton.onclick = async () => {
+                try {
+                    const fileId = await api.draft.file.create(draftId, link, 'phone.conf');
+                    await fetchFile(fileId);
+                }
+                catch (error) {
+                    document.getElementById('links-error').innerText = error;
+                }
+            };
+            linkItemElem.append(createFileProxiedPhoneButton);
+
             const title = document.createElement('span');
             title.textContent = link;
             linkItemElem.append(title);
