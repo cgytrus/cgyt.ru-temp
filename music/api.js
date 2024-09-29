@@ -29,7 +29,7 @@ const api = {
         updateArt: async (draftId, image, mime) => await reqLib('PUT', `/draft/${draftId}/art`, image, mime),
         getFiles: async draftId => await (await reqLib('GET', `/draft/${draftId}/files`)).json(),
         file: {
-            create: async (draftId, link, proxy) => parseInt(await (await reqLib('POST', `/draft/${draftId}/file`, { link, proxy }, 'application/json')).text()),
+            create: async (draftId, link, proxy) => parseInt(await (await reqLib('POST', `/draft/${draftId}/file`, JSON.stringify({ link, proxy }), 'application/json')).text()),
             get: async (draftId, fileId) => await (await reqLib('GET', `/draft/${draftId}/file/${fileId}`)).json(),
             getSpectrogram: async (draftId, fileId) => await (await reqLib('GET', `/draft/${draftId}/file/${fileId}/spectrogram`)).blob(),
             delete: async (draftId, fileId) => await reqLib('DELETE', `/draft/${draftId}/file/${fileId}`),
