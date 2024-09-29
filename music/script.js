@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const trackYearElem = document.getElementById('track-year');
     const trackNumberElem = document.getElementById('track-number');
     const trackLinksElem = document.getElementById('track-links');
+    const trackErrorElem = document.getElementById('track-error');
 
     function addPlaylist(listId, listName, listTracks) {
         const listElemId = `playlist-${listId}`;
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else {
                 const title = document.createElement('a');
-                title.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
+                title.textContent = tr.error ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
                 title.href = '#';
                 title.onclick = async () => {
                     trackEmbedsElem.replaceChildren();
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         trackEmbedsElem.append(document.createElement('br'));
                     }
 
-                    trackTitleElem.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
+                    trackTitleElem.textContent = tr.error ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
                     trackAlbumElem.textContent = tr.albumArtist == tr.artist ?
                         tr.album :
                         `${tr.albumArtist} - ${tr.album}`;
@@ -79,6 +80,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         trackLinksElem.append(linkElem);
                         trackLinksElem.append(document.createElement('br'));
                     }
+                    if (tr.error)
+                        trackErrorElem.textContent = tr.error;
+                    else
+                        trackErrorElem.textContent = '';
 
                     trackElem.classList.remove('display-none-firefox-sucks');
                 };
