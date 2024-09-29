@@ -35,12 +35,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             const trackItemElem = document.createElement('div');
             listElem.append(trackItemElem);
 
-            const title = document.createElement('a');
             if (listName == 'drafts') {
-                title.textContent = `${tr}`;
+                const title = document.createElement('a');
+                title.textContent = tr;
                 title.href = `/music/draft?id=${tr}`;
+                trackItemElem.append(title);
+            }
+            else if (listName == 'errors') {
+                const title = document.createElement('span');
+                title.textContent = tr;
+                title.className = 'error';
+                trackItemElem.append(title);
             }
             else {
+                const title = document.createElement('a');
                 title.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
                 title.href = '#';
                 title.onclick = async () => {
@@ -74,8 +82,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     trackElem.classList.remove('display-none-firefox-sucks');
                 };
+                trackItemElem.append(title);
             }
-            trackItemElem.append(title);
         }
 
         if (!loggedIn)
@@ -97,6 +105,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         addPlaylist('drafts', 'drafts', await api.getDrafts());
 
     const library = await api.getLibrary();
+
+    if (loggedIn && library.errors.length > 0)
+        addPlaylist('errors', 'errors', library.errors);
+
     addPlaylist('tracks', 'all songs', library.tracks);
     for (const id in library.playlists) {
         if (!Object.hasOwnProperty.call(library.playlists, id))
