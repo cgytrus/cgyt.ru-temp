@@ -115,7 +115,7 @@ async function fetchMeta() {
             createFileButton.style = 'cursor: pointer;';
             createFileButton.onclick = async () => {
                 try {
-                    const fileId = await api.draft.file.create(draftId, link, '');
+                    const fileId = await api.draft.file.create(draftId, link, false);
                     await fetchFile(fileId);
                 }
                 catch (error) {
@@ -124,33 +124,19 @@ async function fetchMeta() {
             };
             linkItemElem.append(createFileButton);
 
-            const createFileProxiedPcButton = document.createElement('span');
-            createFileProxiedPcButton.textContent = '🖥️';
-            createFileProxiedPcButton.style = 'cursor: pointer;';
-            createFileProxiedPcButton.onclick = async () => {
+            const createFileCobaltButton = document.createElement('span');
+            createFileCobaltButton.textContent = '✨';
+            createFileCobaltButton.style = 'cursor: pointer;';
+            createFileCobaltButton.onclick = async () => {
                 try {
-                    const fileId = await api.draft.file.create(draftId, link, 'pc.conf');
+                    const fileId = await api.draft.file.create(draftId, link, true);
                     await fetchFile(fileId);
                 }
                 catch (error) {
                     document.getElementById('links-error').innerText = error;
                 }
             };
-            linkItemElem.append(createFileProxiedPcButton);
-
-            const createFileProxiedPhoneButton = document.createElement('span');
-            createFileProxiedPhoneButton.textContent = '📱';
-            createFileProxiedPhoneButton.style = 'cursor: pointer;';
-            createFileProxiedPhoneButton.onclick = async () => {
-                try {
-                    const fileId = await api.draft.file.create(draftId, link, 'phone.conf');
-                    await fetchFile(fileId);
-                }
-                catch (error) {
-                    document.getElementById('links-error').innerText = error;
-                }
-            };
-            linkItemElem.append(createFileProxiedPhoneButton);
+            linkItemElem.append(createFileCobaltButton);
 
             const title = document.createElement('span');
             title.textContent = link;
