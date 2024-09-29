@@ -115,7 +115,7 @@ async function fetchMeta() {
             createFileButton.style = 'cursor: pointer;';
             createFileButton.onclick = async () => {
                 try {
-                    const fileId = await api.draft.file.create(draftId, link);
+                    const fileId = await api.draft.file.create(draftId, link, '');
                     await fetchFile(fileId);
                 }
                 catch (error) {
