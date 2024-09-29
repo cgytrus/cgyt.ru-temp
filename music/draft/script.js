@@ -139,7 +139,7 @@ async function fetchMeta() {
             linkItemElem.append(createFileProxiedPcButton);
 
             const createFileProxiedPhoneButton = document.createElement('span');
-            createFileProxiedPhoneButton.textContent = '🖥️';
+            createFileProxiedPhoneButton.textContent = '📱';
             createFileProxiedPhoneButton.style = 'cursor: pointer;';
             createFileProxiedPhoneButton.onclick = async () => {
                 try {
