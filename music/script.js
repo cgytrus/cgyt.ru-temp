@@ -50,7 +50,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else {
                 const title = document.createElement('a');
-                title.textContent = tr.error ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
+                title.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `${tr.title}`;
+                if (tr.error)
+                    title.textContent = `🔒 ${title.textContent}`;
                 title.href = '#';
                 title.onclick = async () => {
                     trackEmbedsElem.replaceChildren();
@@ -62,7 +64,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         trackEmbedsElem.append(document.createElement('br'));
                     }
 
-                    trackTitleElem.textContent = tr.error ? `${tr.artist} - ${tr.title}` : `🔒 ${tr.title}`;
+                    trackTitleElem.textContent = tr.artist ? `${tr.artist} - ${tr.title}` : `${tr.title}`;
+                    if (tr.error)
+                        trackTitleElem.textContent = `🔒 ${trackTitleElem.textContent}`;
                     trackAlbumElem.textContent = tr.albumArtist == tr.artist ?
                         tr.album :
                         `${tr.albumArtist} - ${tr.album}`;
