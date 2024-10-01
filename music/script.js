@@ -143,6 +143,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         processedTypes.push('Poweramp');
                         continue;
                     }
+                    if (type == 'musicBee') {
+                        processedTypes.push('MusicBee');
+                        continue;
+                    }
                     processedTypes.push(type);
                 }
                 names.push(`${name} [ ${processedTypes.join(', ')} ]`);
