@@ -69,26 +69,28 @@ async function finishFileArt(form) {
     document.getElementById('art-file-submit').disabled = true;
     document.getElementById('art-link-submit').disabled = true;
     try {
-        await api.draft.updateArt(draftId, form.art.files[0], form.art.files[0].type);
+        await api.draft.art.upload(draftId, form.art.files[0], form.art.files[0].type);
     }
     catch (error) {
         document.getElementById('art-file-error').innerText = error;
     }
     document.getElementById('art-file-submit').disabled = false;
     document.getElementById('art-link-submit').disabled = false;
+    await fetchArts();
 }
 
 async function finishLinkArt(form) {
     document.getElementById('art-file-submit').disabled = true;
     document.getElementById('art-link-submit').disabled = true;
     try {
-        await api.draft.updateArt(draftId, form.art.value, 'text/plain');
+        await api.draft.art.upload(draftId, form.art.value, 'text/plain');
     }
     catch (error) {
         document.getElementById('art-link-error').innerText = error;
     }
     document.getElementById('art-file-submit').disabled = false;
     document.getElementById('art-link-submit').disabled = false;
+    await fetchArts();
 }
 
 async function fetchMeta() {
@@ -269,6 +271,109 @@ async function fetchFile(fileId) {
     fileElem.append(document.createElement('br'));
 }
 
+async function fetchArts() {
+    const artsElem = document.getElementById('arts');
+    artsElem.replaceChildren();
+
+    let arts;
+    try {
+        arts = await api.draft.getArts(draftId);
+    }
+    catch (error) {
+        document.getElementById('arts-error').innerText = error;
+        return;
+    }
+
+    for (const artId of arts) {
+        await fetchArt(artId);
+    }
+}
+async function fetchArt(artId) {
+    let artElem = document.getElementById(`art-${artId}`);
+    if (artElem) {
+        artElem.replaceChildren();
+    }
+    else {
+        artElem = document.createElement('div');
+        artElem.id = `art-${artId}`;
+        document.getElementById('arts').append(artElem);
+    }
+
+    const artErrorElem = document.createElement('span');
+    artErrorElem.className = 'error';
+
+    let art;
+    try {
+        art = await api.draft.art.get(draftId, artId);
+    }
+    catch (error) {
+        artElem.append(artErrorElem);
+        artElem.append(document.createElement('br'));
+        return;
+    }
+
+    if (artId !== '') {
+        const deleteButton = document.createElement('span');
+        deleteButton.textContent = '❌';
+        deleteButton.style = 'cursor: pointer;';
+        deleteButton.onclick = async () => {
+            try {
+                await api.draft.art.delete(draftId, artId);
+            }
+            catch (error) {
+                artErrorElem.innerText = error;
+                return;
+            }
+            artElem.remove();
+        };
+        artElem.append(deleteButton);
+
+        const selectButton = document.createElement('span');
+        selectButton.textContent = '✅';
+        selectButton.style = 'cursor: pointer;';
+        selectButton.onclick = async () => {
+            try {
+                await api.draft.art.select(draftId, artId);
+            }
+            catch (error) {
+                artErrorElem.innerText = error;
+                return;
+            }
+            await fetchArts();
+        };
+        artElem.append(selectButton);
+
+        const title = document.createElement('span');
+        title.textContent = `${artId}`;
+        artElem.append(title);
+        artElem.append(document.createElement('br'));
+    }
+
+    const info = document.createElement('span');
+    info.textContent = `${art.size / 1024.0}KiB`;
+    artElem.append(info);
+    artElem.append(document.createElement('br'));
+
+    const image = document.createElement('img');
+    image.alt = `art ${artId}`;
+    image.style = 'width: 256px;'
+    image.onload = () => {
+        info.textContent = `${art.size / 1024.0}KiB ${image.naturalWidth}x${image.naturalHeight}`;
+    };
+    artElem.append(image);
+    artElem.append(document.createElement('br'));
+
+    try {
+        image.src = URL.createObjectURL(art);
+    }
+    catch (error) {
+        artErrorElem.innerText = error;
+    }
+
+    artElem.append(artErrorElem);
+    artElem.append(document.createElement('br'));
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const loggedIn = await api.auth(undefined) == '';
 
@@ -280,4 +385,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await fetchMeta();
     await fetchFiles();
+    await fetchArts();
 });

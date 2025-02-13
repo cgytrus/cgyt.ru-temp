@@ -26,7 +26,13 @@ const api = {
         create: async () => parseInt(await (await reqLib('POST', '/draft')).text()),
         getMeta: async draftId => await (await reqLib('GET', `/draft/${draftId}/meta`)).json(),
         updateMeta: async (draftId, data) => await reqLib('PUT', `/draft/${draftId}/meta`, JSON.stringify(data), 'application/json'),
-        updateArt: async (draftId, image, mime) => await reqLib('PUT', `/draft/${draftId}/art`, image, mime),
+        getArts: async draftId => await (await reqLib('GET', `/draft/${draftId}/arts`)).json(),
+        art: {
+            upload: async (draftId, image, mime) => await reqLib('POST', `/draft/${draftId}/art`, image, mime),
+            get: async (draftId, artId) => await (await reqLib('GET', `/draft/${draftId}/art${artId == '' ? '' : '/'}${artId}`)).blob(),
+            select: async (draftId, artId) => await reqLib('PUT', `/draft/${draftId}/art/${artId}`),
+            delete: async (draftId, artId) => await reqLib('DELETE', `/draft/${draftId}/art/${artId}`)
+        },
         getFiles: async draftId => await (await reqLib('GET', `/draft/${draftId}/files`)).json(),
         file: {
             create: async (draftId, link, cobalt) => parseInt(await (await reqLib('POST', `/draft/${draftId}/file`, JSON.stringify({ link, cobalt }), 'application/json')).text()),
