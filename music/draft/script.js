@@ -267,6 +267,15 @@ async function fetchFile(fileId) {
         fileErrorElem.innerText = 'unknow status: ' + file.status;
     }
 
+    if (file.output) {
+        const out = document.createElement('details');
+        const outSummary = document.createElement('summary');
+        outSummary.textContent = 'output';
+        out.replaceChildren(outSummary, file.output);
+        newChildren.push(out);
+        newChildren.push(document.createElement('br'));
+    }
+
     newChildren.push(fileErrorElem);
     newChildren.push(document.createElement('br'));
     fileElem.replaceChildren(...newChildren);
