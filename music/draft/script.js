@@ -269,7 +269,7 @@ async function fetchFile(fileId) {
 
     newChildren.push(fileErrorElem);
     newChildren.push(document.createElement('br'));
-    fileElem.replaceChildren(newChildren);
+    fileElem.replaceChildren(...newChildren);
 }
 
 async function fetchArts() {
