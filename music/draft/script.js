@@ -185,7 +185,7 @@ async function fetchFile(fileId) {
         file = await api.draft.file.get(draftId, fileId);
     }
     catch (error) {
-        fileElem.replaceChildren([fileErrorElem, document.createElement('br')]);
+        fileElem.replaceChildren(fileErrorElem, document.createElement('br'));
         return;
     }
 
