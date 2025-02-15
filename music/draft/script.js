@@ -256,8 +256,6 @@ async function fetchFile(fileId) {
             info.textContent = `${file.progress.state} ${Math.floor(file.progress.progress * 100.0)} `;
             if (file.progress.data)
                 info.textContent += file.progress.data;
-            if (file.output)
-                info.textContent += `\n${file.output}`;
             setTimeout(() => { fetchFile(fileId) }, 500);
         }
         newChildren.push(info);
@@ -277,6 +275,9 @@ async function fetchFile(fileId) {
             out.append(line);
             out.append(document.createElement('br'));
         }
+        const oldOut = fileElem.getElementsByTagName('details')[0];
+        if (oldOut)
+            out.open = oldOut.open;
         newChildren.push(out);
         newChildren.push(document.createElement('br'));
     }
