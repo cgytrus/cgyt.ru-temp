@@ -171,10 +171,7 @@ async function fetchFiles() {
 }
 async function fetchFile(fileId) {
     let fileElem = document.getElementById(`file-${fileId}`);
-    if (fileElem) {
-        fileElem.replaceChildren();
-    }
-    else {
+    if (!fileElem) {
         fileElem = document.createElement('div');
         fileElem.id = `file-${fileId}`;
         document.getElementById('files').append(fileElem);
@@ -188,10 +185,11 @@ async function fetchFile(fileId) {
         file = await api.draft.file.get(draftId, fileId);
     }
     catch (error) {
-        fileElem.append(fileErrorElem);
-        fileElem.append(document.createElement('br'));
+        fileElem.replaceChildren([fileErrorElem, document.createElement('br')]);
         return;
     }
+
+    const newChildren = [];
 
     const deleteButton = document.createElement('span');
     deleteButton.textContent = '❌';
@@ -206,7 +204,7 @@ async function fetchFile(fileId) {
         }
         fileElem.remove();
     };
-    fileElem.append(deleteButton);
+    newChildren.push(deleteButton);
 
     if (file.status == 'ready') {
         const finalizeButton = document.createElement('span');
@@ -222,24 +220,24 @@ async function fetchFile(fileId) {
             }
             location.href = `${location.origin}/music`;
         };
-        fileElem.append(finalizeButton);
+        newChildren.push(finalizeButton);
     }
 
     const title = document.createElement('span');
     title.textContent = `(${fileId}) ${file.link}`;
-    fileElem.append(title);
-    fileElem.append(document.createElement('br'));
+    newChildren.push(title);
+    newChildren.push(document.createElement('br'));
 
     if (file.status == 'ready') {
         const info = document.createElement('span');
         info.textContent = `${file.format} ${file.codec} ${file.size / 1024.0}KiB ${file.duration} ${file.sampleRate}Hz ${file.bitrate / 1000.0}Kbps`;
-        fileElem.append(info);
-        fileElem.append(document.createElement('br'));
+        newChildren.push(info);
+        newChildren.push(document.createElement('br'));
 
         const spectrogram = document.createElement('img');
         spectrogram.alt = 'spectrogram';
-        fileElem.append(spectrogram);
-        fileElem.append(document.createElement('br'));
+        newChildren.push(spectrogram);
+        newChildren.push(document.createElement('br'));
 
         try {
             spectrogram.src = URL.createObjectURL(await api.draft.file.getSpectrogram(draftId, fileId));
@@ -258,17 +256,20 @@ async function fetchFile(fileId) {
             info.textContent = `${file.progress.state} ${Math.floor(file.progress.progress * 100.0)} `;
             if (file.progress.data)
                 info.textContent += file.progress.data;
+            if (file.output)
+                info.textContent += `\n${file.output}`;
             setTimeout(() => { fetchFile(fileId) }, 500);
         }
-        fileElem.append(info);
-        fileElem.append(document.createElement('br'));
+        newChildren.push(info);
+        newChildren.push(document.createElement('br'));
     }
     else {
         fileErrorElem.innerText = 'unknow status: ' + file.status;
     }
 
-    fileElem.append(fileErrorElem);
-    fileElem.append(document.createElement('br'));
+    newChildren.push(fileErrorElem);
+    newChildren.push(document.createElement('br'));
+    fileElem.replaceChildren(newChildren);
 }
 
 async function fetchArts() {
