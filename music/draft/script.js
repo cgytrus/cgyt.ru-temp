@@ -267,11 +267,16 @@ async function fetchFile(fileId) {
         fileErrorElem.innerText = 'unknow status: ' + file.status;
     }
 
-    if (file.output) {
+    if (file.output.length > 0) {
         const out = document.createElement('details');
         const outSummary = document.createElement('summary');
         outSummary.textContent = 'output';
-        out.replaceChildren(outSummary, file.output);
+        out.append(outSummary);
+        out.className = 'debug';
+        for (const line of file.output) {
+            out.append(line);
+            out.append(document.createElement('br'));
+        }
         newChildren.push(out);
         newChildren.push(document.createElement('br'));
     }
