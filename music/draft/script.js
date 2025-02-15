@@ -258,28 +258,29 @@ async function fetchFile(fileId) {
                 info.textContent += file.progress.data;
             setTimeout(() => { fetchFile(fileId) }, 500);
         }
+
+        if (file.output.length > 0) {
+            const out = document.createElement('details');
+            const outSummary = document.createElement('summary');
+            outSummary.textContent = 'output';
+            out.append(outSummary);
+            out.className = 'debug';
+            for (const line of file.output) {
+                out.append(line);
+                out.append(document.createElement('br'));
+            }
+            const oldOut = fileElem.getElementsByTagName('details')[0];
+            if (oldOut)
+                out.open = oldOut.open;
+            newChildren.push(out);
+            newChildren.push(document.createElement('br'));
+        }
+
         newChildren.push(info);
         newChildren.push(document.createElement('br'));
     }
     else {
         fileErrorElem.innerText = 'unknow status: ' + file.status;
-    }
-
-    if (file.output.length > 0) {
-        const out = document.createElement('details');
-        const outSummary = document.createElement('summary');
-        outSummary.textContent = 'output';
-        out.append(outSummary);
-        out.className = 'debug';
-        for (const line of file.output) {
-            out.append(line);
-            out.append(document.createElement('br'));
-        }
-        const oldOut = fileElem.getElementsByTagName('details')[0];
-        if (oldOut)
-            out.open = oldOut.open;
-        newChildren.push(out);
-        newChildren.push(document.createElement('br'));
     }
 
     newChildren.push(fileErrorElem);
