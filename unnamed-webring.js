@@ -3,13 +3,10 @@ async function getWebringLinks(domain) {
     for (let i = 0; i < domains.length; i++) {
         if (!domains[i].includes(domain))
             continue;
-        let links = {
-            prev: domains[(i - 1 + domains.length) % domains.length],
-            next: domains[(i + 1) % domains.length]
+        return {
+            prev: `https://${domains[(i - 1 + domains.length) % domains.length]}`,
+            next: `https://${domains[(i + 1) % domains.length]}`
         };
-        links.prev = links.prev.startsWith("http") ? links.prev : `https://${links.prev}`;
-        links.next = links.next.startsWith("http") ? links.next : `https://${links.next}`;
-        return links;
     }
     return {};
 }
