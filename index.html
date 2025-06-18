@@ -33,11 +33,12 @@
     <a href="https://cgytrus.itch.io/steel-silk" target="_blank">steel silk</a><br/>
     <span>mods:</span><br/>
     <span>*too lazy to compile them all here but theyre all public on my github so*</span><br/>
-    <script src="https://gist.github.com/cgytrus/6e5579bf95c633ba0f792e9eb2ed43cd/raw" type="text/javascript"></script>
+    <script src="https://gist.githubusercontent.com/cgytrus/6e5579bf95c633ba0f792e9eb2ed43cd/raw/unnamed-webring.js" type="text/javascript"></script>
     <script type="text/javascript">
-        const links = await getWebringLinks('cgyt.ru');
-        document.getElementById('webring-prev').href = links.prev;
-        document.getElementById('webring-next').href = links.next;
+        getWebringLinks('cgyt.ru').then(links => {
+            document.getElementById('webring-prev').href = links.prev;
+            document.getElementById('webring-next').href = links.next;
+        });
     </script>
 </body>
 </html>
