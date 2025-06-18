@@ -15,7 +15,7 @@
     <span>sub-pages:</span><br/>
     <a href="music">music library</a><br/>
     <a href="shows">favorite shows</a><br/>
-    <span>we have a webring !! <a href="https://seebeyond.dev">prev</a> <a href="https://mar-i.co">next</a></span><br/>
+    <span>we have a webring !! <a id="webring-prev">prev</a> <a id="webring-next">next</a></span><br/>
     <span>stuff:</span><br/>
     <a href="https://discord.gg/AuYUVs5" target="_blank">main discord server</a><br/>
     <a href="https://discord.gg/9e43WMKzhp" target="_blank">geode sdk discord server (lead dev)</a><br/>
@@ -33,5 +33,11 @@
     <a href="https://cgytrus.itch.io/steel-silk" target="_blank">steel silk</a><br/>
     <span>mods:</span><br/>
     <span>*too lazy to compile them all here but theyre all public on my github so*</span><br/>
+    <script src="https://gist.github.com/cgytrus/6e5579bf95c633ba0f792e9eb2ed43cd/raw" type="text/javascript"></script>
+    <script type="text/javascript">
+        const links = await getWebringLinks('cgyt.ru');
+        document.getElementById('webring-prev').href = links.prev;
+        document.getElementById('webring-next').href = links.next;
+    </script>
 </body>
 </html>
