@@ -1,4 +1,4 @@
-function reqUrl(url) { return `https://api.cgyt.ru/music/v2${url}`; }
+function reqUrl(url) { return `https://api.cwonfig.pet/music/v2${url}`; }
 async function reqLib(method, url, data, dataType, auth) {
     const res = await fetch(reqUrl(url), {
         method,
