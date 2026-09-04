@@ -5,4 +5,4 @@ COPY . /website-src
 WORKDIR /website-src
 
 # no building required..... yet
-CMD ["cp", "**/*", "/srv/site"]
+CMD ["cp", "-rf", ".", "/srv/site/"]
